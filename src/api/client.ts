@@ -7,15 +7,11 @@ export const wait = (delay: number): Promise<void> => {
 export async function client<T>(url: string): Promise<T> {
   await wait(500);
 
-  try {
-    const response = await fetch(url);
+  const response = await fetch(url);
 
-    if (!response.ok) {
-      throw new Error(`Failed to fetch ${url} with status ${response.status}`);
-    }
-
-    return await response.json();
-  } catch (error) {
-    throw error;
+  if (!response.ok) {
+    throw new Error(`Failed to fetch ${url} with status ${response.status}`);
   }
+
+  return response.json();
 }

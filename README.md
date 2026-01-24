@@ -6,7 +6,7 @@ Implement the catalog with a shopping cart and favorites page according to one o
 - [Original Dark](https://www.figma.com/file/BUusqCIMAWALqfBahnyIiH/Phone-catalog-(V2)-Original-Dark)
 - [Rounded Blue](https://www.figma.com/file/FRxncC4lfyhs6og1L6FGEU/Phone-catalog-(V2)-Rounded-Style-2?node-id=0%3A1)
 - [Rounded Purple](https://www.figma.com/file/xMK2Dy0mfBbJJSNctmOuLW/Phone-catalog-(V2)-Rounded-Style-1?node-id=0%3A1)
-- [Rounded Orange](https://www.figma.com/file/7JTa0q8n3dTSAyMNaA0u8o/Phone-catalog-(V2)-Rounded-Style-3?node-id=0%3A1)
+- [Rounded Purple](https://www.figma.com/file/7JTa0q8n3dTSAyMNaA0u8o/Phone-catalog-(V2)-Rounded-Style-3?node-id=0%3A1)
 
 You may also implement color theme switching!
 
@@ -25,7 +25,7 @@ Use the data from `/public/api` and images from `/public/img` folders. You can r
 ## App
 
 1. Put components into the `src/components` folder.
-   - Each component should be a folder with `index.ts`, `ComponentName.tsx`, `ComponentName.module.scss` files.
+   - Each component should be a folder with `product.types.ts`, `ComponentName.tsx`, `ComponentName.module.scss` files.
    - Use CSS modules.
    - Keep `.module.scss` files together with their components.
 2. Advanced project structure:
@@ -45,7 +45,7 @@ Use the data from `/public/api` and images from `/public/img` folders. You can r
 Implement Home page at available at `/`.
 
 1. `<h1>Product Catalog</h1>` should be visually hidden.
-2. `PicturesSlider`:
+2. `HotPrices`:
    - Find your own images to personalize the App;
    - Change pictures automatically every 5 seconds;
    - The next buttons should show the first image after the last one;

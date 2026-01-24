@@ -9,6 +9,7 @@ export const ERROR_MESSAGES = {
   LOCAL_STORAGE_READ: 'Failed to retrieve data from local storage.',
   LOCAL_STORAGE_WRITE: `Failed to save data to local storage.
      Storage might be full or inaccessible.`,
+  DOWNLOAD_ERROR: `Download Error.`,
 };
 
 export const getErrorMessage = (

@@ -1,0 +1,59 @@
+import React from 'react';
+
+import styles from './SortSelect.module.scss';
+
+import { SortType } from '../../../../types/product.types';
+import { ArrowIcon } from '../../../../components/ArrowIcon';
+
+interface SortSelectProps {
+  sortBy: string;
+  perPage: string;
+  onSortChange: (value: string) => void;
+  onPerPage: (value: string) => void;
+}
+
+export const SortSelect: React.FC<SortSelectProps> = ({
+  sortBy,
+  perPage,
+  onSortChange,
+  onPerPage,
+}) => {
+  return (
+    <div className={styles.sortByContainer}>
+      <div className={styles.selectWrapper}>
+        <label className={styles.sortLabel} aria-label="Sort by">
+          Sort by
+          <select
+            className={styles.select}
+            value={sortBy}
+            onChange={e => onSortChange(e.target.value)}
+          >
+            <option value={SortType.Newest}>Newest</option>
+            <option value={SortType.Alphabetically}>Alphabetically</option>
+            <option value={SortType.Cheapest}>Cheapest</option>
+          </select>
+        </label>
+
+        <ArrowIcon direction="down" className={styles.selectArrow} />
+      </div>
+
+      <div className={styles.selectWrapper}>
+        <label className={styles.sortLabel} aria-label="Items on page">
+          Items on page
+          <select
+            className={styles.select}
+            value={perPage}
+            onChange={e => onPerPage(e.target.value)}
+          >
+            <option value="16">16</option>
+            <option value="32">32</option>
+            <option value="64">64</option>
+            <option value="all">All</option>
+          </select>
+        </label>
+
+        <ArrowIcon direction="down" className={styles.selectArrow} />
+      </div>
+    </div>
+  );
+};

@@ -1,5 +1,55 @@
-.footer {
-  padding: 32px 0;
-  border-top: 1px solid #e2e6e9;
-  margin-top: auto;
+@use "../../styles/variables" as *;
+
+.logo {
+  position: relative;
+
+  width: 64px;
+  height: auto;
+  text-decoration: none;
+  color: var(--color-logo);
+  transition: opacity 0.4s ease;
+
+  @media (min-width: $breakpoint-desktop) {
+    width: 128px;
+    height: auto;
+  }
+
+  &:hover {
+    opacity: 0.8;
+  }
+
+  svg {
+    display: block;
+  }
+}
+
+.logoImg {
+  width: 64px;
+  height: auto;
+
+  @media (min-width: $breakpoint-desktop) {
+    width: 80px;
+  }
+}
+
+
+.logoText {
+  fill: currentColor;
+  transition: fill 0.4s ease;
+}
+
+.logoIcon {
+  position: absolute;
+  top: 0;
+  left: 32px;
+
+  width: 9px;
+  height: 12px;
+
+  @media (min-width: $breakpoint-desktop) {
+    left: 40px;
+
+    width: 11px;
+    height: 15px;
+  }
 }

@@ -1,26 +1,19 @@
 import React, { createContext, useContext, useEffect } from 'react';
 import { useLocalStorage } from '../../hooks/useLocalStorage';
-import { CartItem } from '../../types';
+import { CartItem, Product } from '../../types/product.types';
 
 const CART_STORAGE_KEY = 'cart';
 
 interface CartContextType {
   cart: CartItem[];
   cartCount: number;
-  addToCart: (item: CartItem) => void;
+  // addToCart: (item: CartItem) => void;
+  addToCart: (product: Product, quantity?: number) => void;
   removeFromCart: (itemId: string) => void;
   updateQuantity: (itemId: string, newQuantity: number) => void;
   clearCart: () => void;
+  isInCart: (itemId: string) => boolean;
 }
-
-// const defaultContextValue: CartContextType = {
-//   cart: [],
-//   cartCount: 0,
-//   addToCart: () => {},
-//   removeFromCart: () => {},
-//   updateQuantity: () => {},
-//   clearCart: () => {},
-// };
 
 const CartContext = createContext<CartContextType | undefined>(undefined);
 
@@ -39,19 +32,26 @@ export const CartProvider: React.FC<Props> = ({ children }) => {
 
   const cartCount = cart.reduce((sum, item) => sum + item.quantity, 0);
 
-  const addToCart = (itemToAdd: CartItem, quantityToAdd = 1) => {
+  const addToCart = (product: Product, quantityToAdd = 1) => {
     setCart(currentCart => {
-      const existingItem = currentCart.find(item => item.id === itemToAdd.id);
+      const existing = currentCart.find(item => item.id === product.itemId);
 
-      if (existingItem) {
+      if (existing) {
         return currentCart.map(item =>
-          item.id === itemToAdd.id
+          item.id === product.itemId
             ? { ...item, quantity: item.quantity + quantityToAdd }
             : item,
         );
       }
 
-      return [...currentCart, { ...itemToAdd, quantity: quantityToAdd }];
+      return [
+        ...currentCart,
+        {
+          id: product.itemId,
+          quantity: quantityToAdd,
+          product: product,
+        },
+      ];
     });
   };
 
@@ -75,6 +75,10 @@ export const CartProvider: React.FC<Props> = ({ children }) => {
     setCart([]);
   };
 
+  const isInCart = (itemId: string) => {
+    return cart.some(item => item.id === itemId);
+  };
+
   const contextValue: CartContextType = {
     cart,
     cartCount,
@@ -82,6 +86,7 @@ export const CartProvider: React.FC<Props> = ({ children }) => {
     removeFromCart,
     updateQuantity,
     clearCart,
+    isInCart,
   };
 
   return (

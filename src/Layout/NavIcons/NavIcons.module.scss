@@ -1,0 +1,39 @@
+@use "../../styles/variables" as *;
+
+.navigation__icon {
+  color: var(--color-favorites-cart);
+  transition: color 0.4s ease;
+}
+
+.navigation__iconLink {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &:hover .navigation__icon {
+    color: var(--color-accent);
+  }
+}
+
+.counter {
+  position: absolute;
+  top: -4px;
+  right: -8px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  min-width: 16px;
+  height: 16px;
+
+  color: #FFF;
+  background-color: #EB5757;
+  padding: 0 4px;
+  border: 1px solid var(--background-card);
+  border-radius: 50%;
+
+  font-size: 10px;
+  font-weight: $font-weight-semibold;
+}

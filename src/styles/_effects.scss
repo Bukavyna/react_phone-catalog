@@ -1,0 +1,64 @@
+@use "../styles/variables" as *;
+
+@mixin smooth-transition($prop: all, $time: 0.3s, $func: ease) {
+  transition: $prop $time $func;
+}
+
+@mixin hover-scale($scale: 1.1) {
+  @include smooth-transition(transform);
+
+  &:hover {
+    transform: scale($scale);
+  }
+}
+
+@mixin ripple-hover($hover-color: var(--hover-background)) {
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+
+  @include smooth-transition(background-color);
+
+  &::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+
+    width: 0;
+    height: 0;
+    background-color: $hover-color;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: width 0.4s ease, height 0.4s ease;
+    z-index: 0;
+  }
+
+  &:hover {
+    &::after {
+      width: 200%;
+      height: 200%;
+    }
+  }
+}
+
+@mixin underline-hover($line-color: var(--color-accent)) {
+  position: relative;
+  text-decoration: none;
+
+  &::after {
+    content: "";
+    position: absolute;
+
+    background-color: $line-color;
+
+    transform: scaleX(0);
+    transform-origin: left;
+
+    @include smooth-transition(transform);
+  }
+
+  &:hover::after {
+    transform: scaleX(1);
+  }
+}

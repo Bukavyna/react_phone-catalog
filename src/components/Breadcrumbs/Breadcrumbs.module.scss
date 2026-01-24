@@ -1,5 +1,36 @@
-.footer {
-  padding: 32px 0;
-  border-top: 1px solid #e2e6e9;
-  margin-top: auto;
+.breadcrumbs {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+
+  color: #89939a;
+  margin: 24px 0;
+
+  font-size: 12px;
+}
+
+.homeLink, .link {
+  display: flex;
+  align-items: center;
+
+  color: inherit;
+  text-decoration: none;
+  transition: color 0.3s;
+
+  &:hover {
+    color: #313237;
+  }
+}
+
+.arrow {
+  color: #B4BDC3;
+
+  font-size: 10px;
+}
+
+.current {
+  color: #313237;
+  text-transform: capitalize;
+
+  font-weight: 700;
 }

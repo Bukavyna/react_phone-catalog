@@ -1,0 +1,15 @@
+.container {
+  display: flex;
+  flex-direction: column;
+
+  min-height: 100vh;
+  margin-block-start: 100px;
+}
+
+.title {
+  justify-content: left;
+}
+
+.homePage {
+  /* TODO: styles will be added later */
+}

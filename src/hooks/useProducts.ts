@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
-import { Product } from '../types';
-import { getProducts } from '../api/products';
+
+import { Product } from '../types/product.types';
+import { getProducts } from '../api';
 import { getErrorMessage } from '../utils/errorUtils';
 
 interface UseProductsResult {
@@ -9,36 +10,20 @@ interface UseProductsResult {
   errorMessage: string;
 }
 
-export const useProducts = (): UseProductsResult => {
+export const useProducts = (category?: string): UseProductsResult => {
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
 
   useEffect(() => {
-    setErrorMessage('');
     setLoading(true);
+    setErrorMessage('');
 
-    const loadProducts = async () => {
-      try {
-        const fetchedProducts = await getProducts();
-
-        setProducts(fetchedProducts);
-      } catch (e) {
-        const message = getErrorMessage(e, 'NETWORK');
-
-        setErrorMessage(message);
-        // eslint-disable-next-line no-console
-        console.error('Error loading products, e');
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    loadProducts();
-  }, []);
+    getProducts(category)
+      .then(setProducts)
+      .catch(e => setErrorMessage(getErrorMessage(e, 'NETWORK')))
+      .finally(() => setLoading(false));
+  }, [category]);
 
   return { products, loading, errorMessage };
 };
-
-{
-}

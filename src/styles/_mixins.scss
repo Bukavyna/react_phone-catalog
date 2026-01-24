@@ -1,0 +1,17 @@
+@use "./variables" as *;
+@use "./effects" as *;
+
+@mixin nav-link-base {
+  width: min-content;
+  color: var(--color-secondary);
+  text-transform: uppercase;
+  font-weight: 800;
+  line-height: 11px;
+
+  @include smooth-transition(color);
+  @include underline-hover(white);
+
+  &:hover {
+    color: $c-white-off;
+  }
+}
