@@ -7,19 +7,19 @@ export interface Category {
 
 export const CATEGORIES: Category[] = [
   {
-    path: '/phones',
+    path: 'phones',
     title: 'phones',
     categoryName: 'Mobile Phones',
     apiEndpoint: 'phones',
   },
   {
-    path: '/tablets',
+    path: 'tablets',
     title: 'tablets',
     categoryName: 'Tablets',
     apiEndpoint: 'tablets',
   },
   {
-    path: '/accessories',
+    path: 'accessories',
     title: 'accessories',
     categoryName: 'Accessories',
     apiEndpoint: 'accessories',

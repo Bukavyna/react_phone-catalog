@@ -18,7 +18,7 @@ export const CategoryLinks: React.FC = () => {
 
     return {
       ...cat,
-      image: `/img/category-${cat.apiEndpoint}.webp`,
+      image: `${import.meta.env.BASE_URL}img/category-${cat.apiEndpoint}.webp`,
       count: categoryProducts.length,
     };
   });

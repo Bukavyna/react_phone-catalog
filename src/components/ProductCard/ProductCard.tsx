@@ -23,7 +23,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
 
   const { oldPrice, currentPrice } = getProductPrice(product);
 
-  const detailsUtl = `/${category}/${itemId}`;
+  const detailsUtl = `${import.meta.env.BASE_URL}${category}/${itemId}`;
 
   const productImage = product.images?.[0] || product.image;
 
@@ -39,9 +39,10 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
     <div className={styles.card}>
       <Link to={detailsUtl} className={styles.imageLink}>
         <img
-          src={productImage
-            ? `${import.meta.env.BASE_URL}${productImage}`
-            : `${import.meta.env.BASE_URL}img/page-not-found.png`
+          src={
+            productImage
+              ? `${import.meta.env.BASE_URL}${productImage}`
+              : `${import.meta.env.BASE_URL}img/page-not-found.png`
           }
           alt={name}
           className={styles.image}

@@ -8,9 +8,9 @@ import { ArrowButton } from '../../../../components/ArrowButton';
 
 export const HeroBanner: React.FC = () => {
   const banners = [
-    { id: 1, image: '/img/banner-phones.png', link: '/phones' },
-    { id: 2, image: '/img/banner-tablets.png', link: '/tablets' },
-    { id: 3, image: '/img/banner-accessories.png', link: '/accessories' },
+    { id: 1, image: `${import.meta.env.BASE_URL}img/banner-phones.png`, link: 'phones' },
+    { id: 2, image: `${import.meta.env.BASE_URL}img/banner-tablets.png`, link: 'tablets' },
+    { id: 3, image: `${import.meta.env.BASE_URL}img/banner-accessories.png`, link: 'accessories' },
   ];
 
   const { currentIndex, next, prev, goTo } = useSlider({
@@ -37,7 +37,7 @@ export const HeroBanner: React.FC = () => {
               <Link to={banner.link} key={banner.id} className={styles.slide}>
                 <img
                   src={banner.image}
-                  alt="Promotion"
+                  alt="Banner"
                   className={styles.image}
                 />
               </Link>
