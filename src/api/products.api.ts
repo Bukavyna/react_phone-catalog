@@ -1,14 +1,16 @@
 import { Product, ProductDetails } from '../types/product.types';
 import { client } from './client';
 
-const PRODUCTS_URL = '/api/products.json';
-const ACCESSORIES_URL = '/api/accessories.json';
-const PHONES_URL = '/api/phones.json';
-const TABLETS_URL = '/api/tablets.json';
+const BASE = import.meta.env.BASE_URL;
+
+const PRODUCTS_URL = `${BASE}api/products.json`;
+const ACCESSORIES_URL = `${BASE}api/accessories.json`;
+const PHONES_URL = `${BASE}api/phones.json`;
+const TABLETS_URL = `${BASE}api/tablets.json`;
 
 export const getProducts = async (category?: string): Promise<Product[]> => {
   try {
-    const url = category ? `/api/${category}.json` : PRODUCTS_URL;
+    const url = category ? `${BASE}api/${category}.json` : PRODUCTS_URL;
 
     return await client<Product[]>(url);
   } catch (error) {

@@ -39,7 +39,10 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
     <div className={styles.card}>
       <Link to={detailsUtl} className={styles.imageLink}>
         <img
-          src={productImage || '/img/product-not-found.png'}
+          src={productImage
+            ? `${import.meta.env.BASE_URL}${productImage}`
+            : `${import.meta.env.BASE_URL}img/page-not-found.png`
+          }
           alt={name}
           className={styles.image}
         />
