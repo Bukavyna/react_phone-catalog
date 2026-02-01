@@ -1,5 +1,32 @@
-.footer {
-  padding: 32px 0;
-  border-top: 1px solid #e2e6e9;
-  margin-top: auto;
+.imagesBlock {
+  width: 100%;
+
+  .mainImageBoss {
+    width: 100%;
+
+    .imageBoss {
+      width: 100%;
+    }
+  }
+
+  .imagesBox {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+
+    .imgButton {
+
+      .thumbnail {
+        // I know. I'll fill it in later!
+      }
+    }
+  }
+
+  .active {
+    // I know. I'll fill it in later!
+  }
+}
+
+.loader {
+  // I know. I'll fill it in later!
 }

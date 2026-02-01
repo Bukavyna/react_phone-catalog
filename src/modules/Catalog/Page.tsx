@@ -11,7 +11,7 @@ import { useProducts } from '../../hooks/useProducts';
 import { Spinner } from '../../components/Spinner';
 import { ProductsList } from './components/ProductsList';
 import { SortSelect } from './components/SortSelect';
-import { SortType } from '../../types/product.types';
+import { SortType } from '../../types/sorting.types';
 import { Pagination } from './components/Pagination';
 import { Breadcrumbs } from '../../components/Breadcrumbs';
 

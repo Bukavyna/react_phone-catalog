@@ -2,42 +2,72 @@ import React, { useState, useEffect } from 'react';
 
 import styles from './ProductsSlider.module.scss';
 
-import { getProducts } from '../../../../api/products.api';
-import {
-  Product,
-  ProductsPreset,
-  SortType,
-} from '../../../../types/product.types';
-import { Spinner } from '../../../../components/Spinner';
-import { ProductCard } from '../../../../components/ProductCard';
-import { useSlider } from '../../../../hooks/useSlider';
-import { ArrowButton } from '../../../../components/ArrowButton';
-import { sortProducts } from '../../../../utils/sorting';
+import { getProducts } from '../../api/products.api';
+import { Product } from '../../types/product.types';
+import { ProductsPreset } from '../../types/sorting.types';
+import { SortType } from '../../types/sorting.types';
+import { Spinner } from '../../components/Spinner';
+import { ProductCard } from '../../components/ProductCard';
+import { useSlider } from '../../hooks/useSlider';
+import { ArrowButton } from '../../components/ArrowButton';
+import { sortProducts } from '../../utils/sorting';
+import { filterProductsByCategory } from '../../utils/filtering';
 
 interface ProductsSliderProps {
   title: string;
-  productsPreset: ProductsPreset;
+  productsPreset?: ProductsPreset;
+  category?: string;
+  excludeItemId?: string;
 }
 
 const resolveProductsByPreset = (
-  products: Product[],
-  preset: ProductsPreset,
+  allProducts: Product[],
+  preset?: ProductsPreset,
+  category?: string,
+  excludeItemId?: string,
 ): Product[] => {
+  let filtered = [...allProducts];
+
+  if (category) {
+    filtered = filterProductsByCategory(allProducts, category);
+  }
+
+  if (excludeItemId) {
+    filtered = filtered.filter(product => product.id !== excludeItemId);
+  }
+
+  if (!preset) {
+    filtered = filtered.sort(() => Math.random() - 0.5);
+  }
+
+  if (filtered.length < 12) {
+    const otherProducts = allProducts
+      .filter(
+        product =>
+          product.category !== category && product.id !== excludeItemId,
+      )
+      .sort(() => Math.random() - 0.5);
+
+    filtered = [...filtered, ...otherProducts];
+  }
+
   switch (preset) {
     case ProductsPreset.Newest:
-      return products.slice(-12).reverse();
+      return filtered.slice(-12).reverse();
 
     case ProductsPreset.HotPrices:
-      return sortProducts(products, SortType.HotPrices).slice(0, 12);
+      return sortProducts(filtered, SortType.HotPrices).slice(0, 12);
 
     default:
-      return [];
+      return filtered.slice(0, 12);
   }
 };
 
 export const ProductsSlider: React.FC<ProductsSliderProps> = ({
   title,
   productsPreset,
+  category,
+  excludeItemId,
 }) => {
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
@@ -58,10 +88,19 @@ export const ProductsSlider: React.FC<ProductsSliderProps> = ({
 
     getProducts()
       .then(data => {
-        setProducts(resolveProductsByPreset(data, productsPreset));
+        const allProducts = data as unknown as Product[];
+
+        const result = resolveProductsByPreset(
+          allProducts,
+          productsPreset,
+          category,
+          excludeItemId,
+        );
+
+        setProducts(result);
       })
       .finally(() => setLoading(false));
-  }, [productsPreset]);
+  }, [productsPreset, category, excludeItemId]);
 
   const { currentIndex, next, prev, canNext, canPrev } = useSlider({
     itemsCount: products.length,
@@ -105,7 +144,7 @@ export const ProductsSlider: React.FC<ProductsSliderProps> = ({
         >
           {products.map(product => (
             <div className={styles.cardWrapper} key={product.id}>
-              <ProductCard product={product} />
+              <ProductCard key={product.id} product={product} />
             </div>
           ))}
         </div>

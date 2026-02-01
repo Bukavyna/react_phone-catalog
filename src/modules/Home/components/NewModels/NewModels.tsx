@@ -1,6 +1,6 @@
 import React from 'react';
-import { ProductsSlider } from '../ProductsSlider';
-import { ProductsPreset } from '../../../../types/product.types';
+import { ProductsSlider } from '../../../ProductsSlider';
+import { ProductsPreset } from '../../../../types/sorting.types';
 
 export const NewModels: React.FC = () => {
   return (

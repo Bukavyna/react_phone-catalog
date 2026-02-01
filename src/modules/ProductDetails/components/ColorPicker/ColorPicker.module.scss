@@ -1,5 +1,37 @@
-.footer {
-  padding: 32px 0;
-  border-top: 1px solid #e2e6e9;
-  margin-top: auto;
+.colorsSelectionBox {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+
+  padding: 10px;
+
+  .label {
+    color: #3D7FFF;
+
+    font-size: 12px;
+  }
+
+  .colorsSelection {
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
+
+    .colorButton {
+      width: 32px;
+      height: 32px;
+      border: 2px solid transparent;
+      border-radius: 50%;
+      cursor: pointer;
+      transition: transform 0.2s ease;
+      outline: 1px solid #e2e6e9;
+
+      &:hover {
+        transform: scale(1.1);
+      }
+
+      &.active {
+        box-shadow: 0 0 10px 1px;
+      }
+    }
+  }
 }

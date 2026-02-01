@@ -3,8 +3,8 @@ import { Link } from 'react-router-dom';
 
 import baseStyles from './NavIcons.module.scss';
 
-import { useFavorites } from '../../context/FavoritesContext';
-import { useCart } from '../../context/CartContext';
+import { useFavorites } from '../../hooks/useFavorites';
+import { useCart } from '../../hooks/useCart';
 
 interface NavIconsProps {
   styles: { [key: string]: string };

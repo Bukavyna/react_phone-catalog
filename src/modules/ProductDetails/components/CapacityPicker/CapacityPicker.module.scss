@@ -1,5 +1,38 @@
-.footer {
-  padding: 32px 0;
-  border-top: 1px solid #e2e6e9;
-  margin-top: auto;
+.capacitySelectionBox {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+
+  padding: 10px;
+
+  .label {
+    color: #3D7FFF;
+
+    font-size: 12px;
+  }
+
+  .capacitySelection {
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
+
+    .capacityButton {
+      width: 52px;
+      height: 32px;
+      color: #03a9f4;
+      border: 2px solid transparent;
+      cursor: pointer;
+      transition: transform 0.2s ease;
+      outline: 1px solid #e2e6e9;
+
+      &:hover {
+        transform: scale(1.1);
+        color: #FF7A1A;
+      }
+
+      &.active {
+        box-shadow: 0 0 10px 1px;
+      }
+    }
+  }
 }

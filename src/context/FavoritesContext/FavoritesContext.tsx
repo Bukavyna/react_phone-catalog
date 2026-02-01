@@ -1,14 +1,9 @@
-import React, { createContext, useContext } from 'react';
+import React, { createContext } from 'react';
+
 import { useLocalStorage } from '../../hooks/useLocalStorage';
+import { FavoritesContextType } from '../../types/favorites.types';
 
-interface FavoritesContextType {
-  favorites: string[];
-  toggleFavorite: (itemId: string) => void;
-  isFavorites: (itemId: string) => boolean;
-  clearFavorites: () => void;
-}
-
-const FavoritesContext = createContext<FavoritesContextType | undefined>(
+export const FavoritesContext = createContext<FavoritesContextType | undefined>(
   undefined,
 );
 
@@ -43,14 +38,4 @@ export const FavoritesProvider: React.FC<Props> = ({ children }) => {
       {children}
     </FavoritesContext.Provider>
   );
-};
-
-export const useFavorites = () => {
-  const context = useContext(FavoritesContext);
-
-  if (!context) {
-    throw new Error('useFavorites must be used within a FavoritesProvider');
-  }
-
-  return context;
 };

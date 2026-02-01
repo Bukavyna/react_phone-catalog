@@ -8,21 +8,20 @@ export interface ProductDetails {
   category: string;
   namespaceId: string;
   name: string;
-
   priceRegular: number;
   priceDiscount: number;
-
   capacity: string;
   capacityAvailable: string[];
-
   color: string;
   colorsAvailable: string[];
-
   images: string[];
-
-  screen: string;
-  ram: string;
-  year: number;
-
   description: ProductDescriptionBlock[];
+  screen: string;
+  resolution: string;
+  processor: string;
+  ram: string;
+  cell?: string[];
+  year?: number;
+  camera?: string;
+  zoom?: string;
 }

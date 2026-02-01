@@ -2,7 +2,7 @@ import React from 'react';
 
 import styles from './SortSelect.module.scss';
 
-import { SortType } from '../../../../types/product.types';
+import { SortType } from '../../../../types/sorting.types';
 import { ArrowIcon } from '../../../../components/ArrowIcon';
 
 interface SortSelectProps {

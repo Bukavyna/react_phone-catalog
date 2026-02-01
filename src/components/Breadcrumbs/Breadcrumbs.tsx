@@ -21,12 +21,6 @@ const HomeIcon = () => (
   </svg>
 );
 
-// const ArrowIcon = () => (
-//   <svg width="16" height="16" viewBox="0 0 16 16" fill="none" style={{ margin: '0 4px' }}>
-//     <path d="M6 12L10 8L6 4" stroke="#B4BDC3" strokeLinecap="round" strokeLinejoin="round"/>
-//   </svg>
-// );
-
 export const Breadcrumbs: React.FC = () => {
   const { pathname } = useLocation();
 

@@ -1,42 +1,17 @@
-import { Product, ProductDetails } from '../types/product.types';
+import { ProductDetails } from '../types/product-details.types';
 import { client } from './client';
 
 const BASE = import.meta.env.BASE_URL;
 
-const PRODUCTS_URL = `${BASE}api/products.json`;
 const ACCESSORIES_URL = `${BASE}api/accessories.json`;
 const PHONES_URL = `${BASE}api/phones.json`;
 const TABLETS_URL = `${BASE}api/tablets.json`;
 
-export const getProducts = async (category?: string): Promise<Product[]> => {
-  try {
-    const url = category ? `${BASE}api/${category}.json` : PRODUCTS_URL;
+let allProductsCache: ProductDetails[] | null = null;
 
-    return await client<Product[]>(url);
-  } catch (error) {
-    throw error;
-  }
-};
-
-export const getProductDetails = async (itemId: string, category?: string) => {
-  if (category) {
-    const url =
-      category === 'phones'
-        ? PHONES_URL
-        : category === 'tablets'
-          ? TABLETS_URL
-          : ACCESSORIES_URL;
-
-    const products = await client<ProductDetails[]>(url);
-    const product = products.find(
-      prod => prod.namespaceId === itemId || prod.id === itemId,
-    );
-
-    if (!product) {
-      throw new Error(`Product with ID ${itemId} not found`);
-    }
-
-    return product;
+const loadAllProducts = async (): Promise<ProductDetails[]> => {
+  if (allProductsCache) {
+    return allProductsCache;
   }
 
   const [accessories, phones, tablets] = await Promise.all([
@@ -45,21 +20,35 @@ export const getProductDetails = async (itemId: string, category?: string) => {
     client<ProductDetails[]>(TABLETS_URL),
   ]);
 
-  const all = [...accessories, ...phones, ...tablets];
+  allProductsCache = [...accessories, ...phones, ...tablets];
 
-  const product = all.find(
-    prod => prod.namespaceId === itemId || prod.id === itemId,
+  return allProductsCache;
+};
+
+export const getProductDetails = async (
+  itemId: string,
+): Promise<ProductDetails> => {
+  const allProducts = await loadAllProducts();
+
+  const foundProduct = allProducts.find(
+    product => product.namespaceId === itemId || product.id === itemId,
   );
 
-  if (!product) {
+  if (!foundProduct) {
     throw new Error(`Product with ID ${itemId} not found`);
   }
 
-  return product;
+  return foundProduct;
 };
 
-export const getProductsByCategory = async (category: string) => {
-  const products = await getProducts();
+export const getProducts = async (): Promise<ProductDetails[]> => {
+  return loadAllProducts();
+};
 
-  return products.filter(product => product.category === category);
+export const getProductsByCategory = async (
+  category: string,
+): Promise<ProductDetails[]> => {
+  const allProducts = await loadAllProducts();
+
+  return allProducts.filter(product => product.category === category);
 };

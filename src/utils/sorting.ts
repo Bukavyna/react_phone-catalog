@@ -1,4 +1,5 @@
-import { Product, SortType } from '../types/product.types';
+import { Product } from '../types/product.types';
+import { SortType } from '../types/sorting.types';
 
 export const sortProducts = (
   products: Product[],
@@ -20,9 +21,6 @@ export const sortProducts = (
 
         return discountB - discountA;
       });
-
-    // case SortType.Newest:
-    //   return sorted
   }
 
   return sorted;

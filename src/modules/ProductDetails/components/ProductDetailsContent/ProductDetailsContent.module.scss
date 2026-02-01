@@ -1,0 +1,31 @@
+.containerProductDetailsPage {
+  min-height: 80vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.fadeWrapper {
+  position: relative;
+  flex-grow: 1;
+}
+
+.fadeLayerOld,
+.fadeLayerNew {
+  inset: 0;
+  transition: opacity 0.5s ease;
+}
+
+.fadeLayerOld {
+  opacity: 1;
+}
+
+.fadeLayerNew {
+  opacity: 0;
+  animation: fade-in 0.5s forwards;
+}
+
+@keyframes fade-in {
+  to {
+    opacity: 1;
+  }
+}

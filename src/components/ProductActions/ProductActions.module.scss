@@ -1,0 +1,54 @@
+@use "../../styles/variables" as *;
+
+.actions {
+  display: flex;
+  gap: 8px;
+
+  width: 100%;
+  height: 40px;
+
+  border: none;
+}
+
+.cardButton {
+  flex-grow: 1;
+
+  border: none;
+
+  font-family: Mont, sans-serif;
+  font-size: $font-size-sm;
+  font-weight: $font-weight-bold;
+  line-height: 21px;
+}
+
+.cardButtonPrimary  {
+  background-color: var(--button-primary);
+  color: #FFF;
+
+  &:hover {
+    background-color: var(--button-primary-hover);
+  }
+}
+
+.cardButtonSecondary {
+  background-color: var(--button-secondary);
+  border: 1px solid var(--button-secondary-border);
+  color: var(--text-primary);
+}
+
+.favoriteButton {
+  width: 40px;
+  color: #B4BDC3;
+  background-color: $c-grey-night;
+  border: none;
+
+  &:hover {
+    box-shadow: 0 3 13 0 $c-grey-charcoal;
+  }
+}
+
+.favoriteActive {
+  background-color: var(--favorite-bg);
+  border: 1px solid var(--favorite-border);
+  color: var(--favorite-icon);
+}
