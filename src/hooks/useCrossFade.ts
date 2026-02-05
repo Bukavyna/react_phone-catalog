@@ -8,16 +8,11 @@ export const useCrossFade = <T>(value: T | null, duration = 500) => {
   const previousValueRef = useRef<T | null>(value);
 
   useEffect(() => {
-    // if (!value || value === current) {
-    //   return;
-    // }
-
     if (!value || value === previousValueRef.current) {
       return;
     }
 
     setPrevious(previousValueRef.current);
-    // setPrevious(current);
     setCurrent(value);
 
     previousValueRef.current = value;

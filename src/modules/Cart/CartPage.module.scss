@@ -1,0 +1,13 @@
+.cartPage {
+  min-width: 288px;
+  margin-block-start: 100px;
+
+  .title {
+    color: #6b0392;
+  }
+  .content {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+}

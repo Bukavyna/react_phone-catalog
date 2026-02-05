@@ -46,6 +46,6 @@ export const THEMES: ThemeConfig[] = [
     textColor: '#0F0F11',
     buttonColor: '#F86800',
   },
-];
+] as const;
 
 export type ThemeConfigArray = typeof THEMES;

@@ -6,7 +6,7 @@ import { Breadcrumbs } from '../../../../components/Breadcrumbs';
 import { ArrowButton } from '../../../../components/ArrowButton';
 import { ColorPicker } from '../ColorPicker';
 import { CapacityPicker } from '../CapacityPicker';
-import { ProductDetails } from '../../../../types/product.types';
+import { ProductDetailsType } from '../../../../types/product-details.types';
 import { useNavigate } from 'react-router-dom';
 import { ImageGallery } from '../ImageGallery';
 import { TechSpecs } from '../TechSpecs';
@@ -14,11 +14,11 @@ import { AboutSection } from '../AboutSection';
 import { ProductActions } from '../../../../components/ProductActions';
 
 interface ProductViewProps {
-  details: ProductDetails;
+  details: ProductDetailsType;
 }
 
 const getNewPath = (
-  details: ProductDetails,
+  details: ProductDetailsType,
   newColor?: string,
   newCapacity?: string,
 ) => {

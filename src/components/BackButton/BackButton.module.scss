@@ -1,5 +1,11 @@
-.footer {
-  padding: 32px 0;
-  border-top: 1px solid #e2e6e9;
-  margin-top: auto;
+.backButton {
+  .iconWrapper {
+    .arrowIcon {
+      transform: rotate(180deg);
+    }
+  }
+
+  .text {
+    color: #6b0392;
+  }
 }

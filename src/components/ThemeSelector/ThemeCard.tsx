@@ -6,7 +6,6 @@ interface ThemeCardProps {
   theme: ThemeConfig;
   isActive: boolean;
   onClick: () => void;
-  // id: string;
 }
 
 export const ThemeCard: React.FC<ThemeCardProps> = ({
@@ -34,7 +33,7 @@ export const ThemeCard: React.FC<ThemeCardProps> = ({
       <input
         type="radio"
         name="theme"
-        value={theme.id}
+        value={String(theme.id)}
         checked={isActive}
         onChange={onClick}
         className={styles.radio}

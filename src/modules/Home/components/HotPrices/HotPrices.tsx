@@ -1,12 +1,12 @@
 import React from 'react';
 import { ProductsSlider } from '../../../ProductsSlider';
-import { ProductsPreset } from '../../../../types/sorting.types';
+import { ProductsPresetType } from '../../../../types/sorting.types';
 
 export const HotPrices: React.FC = () => {
   return (
     <ProductsSlider
       title="Hot prices"
-      productsPreset={ProductsPreset.HotPrices}
+      productsPreset={ProductsPresetType.HotPrices}
     />
   );
 };

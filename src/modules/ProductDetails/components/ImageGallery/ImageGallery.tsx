@@ -2,10 +2,10 @@ import React, { useEffect, useState } from 'react';
 
 import styles from './ImageGallery.module.scss';
 
-import { ProductDetails } from '../../../../types/product-details.types';
+import { ProductDetailsType } from '../../../../types/product-details.types';
 
 interface ImageGalleryProps {
-  details: ProductDetails;
+  details: ProductDetailsType;
 }
 
 export const ImageGallery: React.FC<ImageGalleryProps> = ({ details }) => {

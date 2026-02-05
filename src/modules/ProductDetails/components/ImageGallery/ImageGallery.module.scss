@@ -1,11 +1,18 @@
 .imagesBlock {
+  display: flex;
+  flex-direction: column;
+
   width: 100%;
 
   .mainImageBoss {
+    display: flex;
+    align-items: center;
+
     width: 100%;
 
     .imageBoss {
-      width: 100%;
+      margin: auto;
+      min-width: 100px;
     }
   }
 
@@ -14,10 +21,15 @@
     justify-content: space-between;
     width: 100%;
 
+
+
     .imgButton {
+      width: 150px;
+      cursor: pointer;
 
       .thumbnail {
-        // I know. I'll fill it in later!
+        width: 100%;
+        cursor: pointer;
       }
     }
   }

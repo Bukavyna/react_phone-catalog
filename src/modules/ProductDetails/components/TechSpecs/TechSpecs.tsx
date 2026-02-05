@@ -1,7 +1,7 @@
 import React from 'react';
 
 import styles from './TechSpecs.module.scss';
-import { ProductDetails } from '../../../../types/product-details.types';
+import { ProductDetailsType } from '../../../../types/product-details.types';
 
 const techSpecsLabels: Record<string, string> = {
   screen: 'Screen',
@@ -29,7 +29,7 @@ const specsToShow = [
 interface TechSpecsProps {
   details: Partial<
   Pick<
-  ProductDetails,
+  ProductDetailsType,
   | 'screen'
   | 'resolution'
   | 'processor'

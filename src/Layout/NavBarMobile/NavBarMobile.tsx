@@ -16,23 +16,17 @@ export const NavBarMobile: React.FC<NavBarMobileProps> = ({
 }) => {
   return (
     <nav className={`${styles.navigation} ${isOpen ? styles.open : ''}`}>
-      <Link to="/" onClick={onClose} className={styles.navigation__link}>
-        home
-      </Link>
-
       <Link onClick={onClose} to="/" className={styles.navigation__link}>
         home
       </Link>
-      <Link
-        onClick={onClose}
-        to="/api/phones"
-        className={styles.navigation__link}
-      >
+
+      <Link onClick={onClose} to="/phones" className={styles.navigation__link}>
         phones
       </Link>
       <Link onClick={onClose} to="/tablets" className={styles.navigation__link}>
         tablets
       </Link>
+
       <Link
         onClick={onClose}
         to="/accessories"
@@ -41,7 +35,7 @@ export const NavBarMobile: React.FC<NavBarMobileProps> = ({
         accessories
       </Link>
 
-      <NavIcons styles={styles} />
+      <NavIcons styles={styles} onClose={onClose} />
     </nav>
   );
 };

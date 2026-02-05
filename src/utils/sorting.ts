@@ -1,10 +1,10 @@
-import { Product } from '../types/product.types';
+import { ProductType } from '../types/product.types';
 import { SortType } from '../types/sorting.types';
 
 export const sortProducts = (
-  products: Product[],
+  products: ProductType[],
   sortType: SortType,
-): Product[] => {
+): ProductType[] => {
   const sorted = [...products];
 
   switch (sortType) {

@@ -5,7 +5,7 @@ export enum SortType {
   HotPrices = 'hotPrices',
 }
 
-export enum ProductsPreset {
+export enum ProductsPresetType {
   Newest = 'newest',
   HotPrices = 'hotPrices',
 }

@@ -3,8 +3,8 @@ import React, { useState, useEffect } from 'react';
 import styles from './ProductsSlider.module.scss';
 
 import { getProducts } from '../../api/products.api';
-import { Product } from '../../types/product.types';
-import { ProductsPreset } from '../../types/sorting.types';
+import { ProductType } from '../../types/product.types';
+import { ProductsPresetType } from '../../types/sorting.types';
 import { SortType } from '../../types/sorting.types';
 import { Spinner } from '../../components/Spinner';
 import { ProductCard } from '../../components/ProductCard';
@@ -15,17 +15,17 @@ import { filterProductsByCategory } from '../../utils/filtering';
 
 interface ProductsSliderProps {
   title: string;
-  productsPreset?: ProductsPreset;
+  ProductsPresetType?: ProductsPresetType;
   category?: string;
   excludeItemId?: string;
 }
 
 const resolveProductsByPreset = (
-  allProducts: Product[],
-  preset?: ProductsPreset,
+  allProducts: ProductType[],
+  preset?: ProductsPresetType,
   category?: string,
   excludeItemId?: string,
-): Product[] => {
+): ProductType[] => {
   let filtered = [...allProducts];
 
   if (category) {
@@ -52,10 +52,10 @@ const resolveProductsByPreset = (
   }
 
   switch (preset) {
-    case ProductsPreset.Newest:
+    case ProductsPresetType.Newest:
       return filtered.slice(-12).reverse();
 
-    case ProductsPreset.HotPrices:
+    case ProductsPresetType.HotPrices:
       return sortProducts(filtered, SortType.HotPrices).slice(0, 12);
 
     default:
@@ -69,7 +69,7 @@ export const ProductsSlider: React.FC<ProductsSliderProps> = ({
   category,
   excludeItemId,
 }) => {
-  const [products, setProducts] = useState<Product[]>([]);
+  const [products, setProducts] = useState<ProductType[]>([]);
   const [loading, setLoading] = useState(true);
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
@@ -88,7 +88,7 @@ export const ProductsSlider: React.FC<ProductsSliderProps> = ({
 
     getProducts()
       .then(data => {
-        const allProducts = data as unknown as Product[];
+        const allProducts = data as unknown as ProductType[];
 
         const result = resolveProductsByPreset(
           allProducts,

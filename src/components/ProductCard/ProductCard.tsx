@@ -3,12 +3,12 @@ import { Link } from 'react-router-dom';
 
 import styles from './ProductCard.module.scss';
 
-import { Product } from '../../types/product.types';
+import { ProductType } from '../../types/product.types';
 import { getProductPrice } from '../../utils/priceHelper';
 import { ProductActions } from '../ProductActions';
 
 interface ProductCardProps {
-  product: Product;
+  product: ProductType;
 }
 
 export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {

@@ -2,8 +2,8 @@ import React, { createContext, useEffect } from 'react';
 
 import { CartContextType } from '../../types/cart-context.types';
 import { useLocalStorage } from '../../hooks/useLocalStorage';
-import { Product } from '../../types/product.types';
-import { CartItem } from '../../types/cart-item.types';
+import { ProductType } from '../../types/product.types';
+import { CartItemType } from '../../types/cart-item.types';
 
 const CART_STORAGE_KEY = 'cart';
 
@@ -16,7 +16,7 @@ interface CartProviderProps {
 }
 
 export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
-  const [cart, setCart] = useLocalStorage<CartItem[]>(CART_STORAGE_KEY, []);
+  const [cart, setCart] = useLocalStorage<CartItemType[]>(CART_STORAGE_KEY, []);
 
   useEffect(() => {
     if (!Array.isArray(cart)) {
@@ -26,7 +26,7 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
 
   const cartCount = cart.reduce((sum, item) => sum + item.quantity, 0);
 
-  const addToCart = (product: Product, quantityToAdd = 1) => {
+  const addToCart = (product: ProductType, quantityToAdd = 1) => {
     setCart(currentCart => {
       const existing = currentCart.find(item => item.id === product.id);
 
@@ -73,6 +73,22 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
     return cart.some(item => item.id === itemId);
   };
 
+  const increaseQuantity = (itemId: string) => {
+    const item = cart.find(i => i.id === itemId);
+
+    if (item) {
+      updateQuantity(itemId, item.quantity + 1);
+    }
+  };
+
+  const decreaseQuantity = (itemId: string) => {
+    const item = cart.find(i => i.id === itemId);
+
+    if (item) {
+      updateQuantity(itemId, item.quantity - 1);
+    }
+  };
+
   const contextValue: CartContextType = {
     cart,
     cartCount,
@@ -81,6 +97,8 @@ export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
     updateQuantity,
     clearCart,
     isInCart,
+    increaseQuantity,
+    decreaseQuantity,
   };
 
   return (

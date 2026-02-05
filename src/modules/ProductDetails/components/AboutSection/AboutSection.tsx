@@ -2,10 +2,10 @@ import React from 'react';
 
 import styles from './AboutSection.module.scss';
 
-import { ProductDetails } from '../../../../types/product-details.types';
+import { ProductDetailsType } from '../../../../types/product-details.types';
 
 interface AboutSectionProps {
-  details: ProductDetails;
+  details: ProductDetailsType;
 }
 
 export const AboutSection: React.FC<AboutSectionProps> = ({ details }) => {

@@ -1,8 +1,8 @@
-import { Product } from '../types/product.types';
+import { ProductType } from '../types/product.types';
 
 export const filterProductsByCategory = (
-  products: Product[],
+  products: ProductType[],
   category: string,
-): Product[] => {
+): ProductType[] => {
   return products.filter(product => product.category === category);
 };

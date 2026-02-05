@@ -1,11 +1,11 @@
-import { Product } from '../types/product.types';
+import { ProductType } from '../types/product.types';
 
 type NormalizePrice = {
   currentPrice: number;
   oldPrice: number | null;
 };
 
-export const getProductPrice = (product: Product): NormalizePrice => {
+export const getProductPrice = (product: ProductType): NormalizePrice => {
   if (product.priceDiscount && product.priceRegular) {
     return {
       currentPrice: product.priceDiscount,

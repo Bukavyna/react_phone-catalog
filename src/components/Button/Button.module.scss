@@ -1,0 +1,35 @@
+@import "../../styles/variables";
+
+.button {
+  height: 40px;
+  padding: 0 16px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+
+  font-weight: 600;
+
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.6;
+  }
+}
+
+.primary {
+  background-color: $color-primary;
+  color: white;
+
+  &:hover:not(:disabled) {
+    // Styles to come later!
+  }
+}
+
+.secondary {
+  background-color: white;
+  color: $color-primary;
+
+  &:hover:not(:disabled) {
+    background-color: $color-primary;
+  }
+}

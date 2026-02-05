@@ -1,9 +1,11 @@
-export interface ProductDescriptionBlock {
+import { ProductType } from './product.types';
+
+export interface ProductDescriptionBlockType {
   title: string;
   text: string[];
 }
 
-export interface ProductDetails {
+export interface ProductDetailsType extends ProductType {
   id: string;
   category: string;
   namespaceId: string;
@@ -15,7 +17,7 @@ export interface ProductDetails {
   color: string;
   colorsAvailable: string[];
   images: string[];
-  description: ProductDescriptionBlock[];
+  description: ProductDescriptionBlockType[];
   screen: string;
   resolution: string;
   processor: string;

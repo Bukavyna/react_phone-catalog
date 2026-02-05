@@ -37,8 +37,6 @@ export const ProductDetailsContent: React.FC = () => {
             </div>
           )}
         </div>
-
-        {/*{current?.category && <SuggestedProducts category={current.category} />}*/}
       </div>
       {current?.category && <SuggestedProducts category={current.category} />}
     </>

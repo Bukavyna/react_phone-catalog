@@ -2,39 +2,49 @@ import React, { createContext } from 'react';
 
 import { useLocalStorage } from '../../hooks/useLocalStorage';
 import { FavoritesContextType } from '../../types/favorites.types';
+import { ProductType } from '../../types/product.types';
 
 export const FavoritesContext = createContext<FavoritesContextType | undefined>(
   undefined,
 );
 
-interface Props {
-  children: React.ReactNode;
-}
+export const FavoritesProvider: React.FC<{ children: React.ReactNode }> = ({
+  children,
+}) => {
+  const [favorites, setFavorites] = useLocalStorage<ProductType[]>(
+    'favorites',
+    [],
+  );
 
-export const FavoritesProvider: React.FC<Props> = ({ children }) => {
-  const [favorites, setFavorites] = useLocalStorage<string[]>('favorites', []);
+  const toggleFavorite = (product: ProductType) => {
+    setFavorites(current => {
+      const isFixed = current.some(item => item.id === product.id);
 
-  const toggleFavorite = (itemId: string) => {
-    setFavorites(current =>
-      current.includes(itemId)
-        ? current.filter(id => id !== itemId)
-        : [...current, itemId],
-    );
+      if (isFixed) {
+        return current.filter(item => item.id !== product.id);
+      }
+
+      return [...current, product];
+    });
   };
 
-  const isFavorites = (itemId: string) => favorites.includes(itemId);
+  const isFavorites = (productId: string) => {
+    return favorites.some(item => item.id === productId);
+  };
 
-  const clearFavorites = () => setFavorites([]);
-
-  const value = {
-    favorites,
-    toggleFavorite,
-    isFavorites,
-    clearFavorites,
+  const clearFavorites = () => {
+    setFavorites([]);
   };
 
   return (
-    <FavoritesContext.Provider value={value}>
+    <FavoritesContext.Provider
+      value={{
+        favorites,
+        toggleFavorite,
+        isFavorites,
+        clearFavorites,
+      }}
+    >
       {children}
     </FavoritesContext.Provider>
   );

@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
-import { ProductDetails } from '../types/product-details.types';
+import { ProductDetailsType } from '../types/product-details.types';
 import { getProductDetails } from '../api';
 
 interface UseProductDetailsResult {
-  details: ProductDetails | null;
+  details: ProductDetailsType | null;
   loading: boolean;
   error: string;
 }
@@ -11,7 +11,7 @@ interface UseProductDetailsResult {
 export const useProductDetails = (
   productId: string | undefined,
 ): UseProductDetailsResult => {
-  const [details, setDetails] = useState<ProductDetails | null>(null);
+  const [details, setDetails] = useState<ProductDetailsType | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
 
@@ -26,10 +26,6 @@ export const useProductDetails = (
     setDetails(null);
     setLoading(true);
     setError('');
-
-    // if (!details) {
-    //   setLoading(true);
-    // }
 
     const loadDetails = async () => {
       try {

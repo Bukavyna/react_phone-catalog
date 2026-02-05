@@ -6,11 +6,10 @@ import { NavIcons } from '../NavIcons';
 import styles from './NavBarDesktop.module.scss';
 
 interface NavBarDesktopProps {
-  isOpen: boolean;
   onClose: () => void;
 }
 
-export const NavBarDesktop: React.FC<NavBarDesktopProps> = () => {
+export const NavBarDesktop: React.FC<NavBarDesktopProps> = ({ onClose }) => {
   return (
     <nav className={styles.navigation}>
       <Link to="/" className={styles.navigation__link}>
@@ -26,7 +25,7 @@ export const NavBarDesktop: React.FC<NavBarDesktopProps> = () => {
         accessories
       </Link>
 
-      <NavIcons styles={styles} />
+      <NavIcons styles={styles} onClose={onClose} />
     </nav>
   );
 };

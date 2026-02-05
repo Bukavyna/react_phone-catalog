@@ -14,7 +14,7 @@ const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
-  const [them, setThem] = useState<Theme>(() => {
+  const [themes, setThemes] = useState<Theme>(() => {
     const savedTheme = localStorage.getItem('theme');
 
     if (
@@ -35,14 +35,14 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({
       .filter(cls => !allThemeClasses.includes(cls))
       .join(' ');
 
-    document.body.classList.add(them);
+    document.body.classList.add(themes as string);
 
-    localStorage.setItem('theme', them);
-  }, [them]);
+    localStorage.setItem('theme', themes as string);
+  }, [themes]);
 
   const value: ThemeContextType = {
-    theme: them,
-    setTheme: setThem,
+    theme: themes,
+    setTheme: setThemes,
   };
 
   return (

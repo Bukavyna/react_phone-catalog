@@ -2,11 +2,11 @@ import React from 'react';
 
 import styles from './ProductsList.module.scss';
 
-import { Product } from '../../../../types/product.types';
+import { ProductType } from '../../../../types/product.types';
 import { ProductCard } from '../../../../components/ProductCard';
 
 interface ProductListProps {
-  products: Product[];
+  products: ProductType[];
 }
 
 export const ProductsList: React.FC<ProductListProps> = ({ products }) => {

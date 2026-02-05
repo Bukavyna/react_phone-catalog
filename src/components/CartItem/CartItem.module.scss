@@ -1,0 +1,44 @@
+.cartItem {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+
+  border: 1px solid #E2E6E9;
+  padding: 16px;
+
+  .leftBloc {
+    display: flex;
+    justify-content: space-between;
+
+    .button {
+      // Styles to come later!
+    }
+    .img {
+      width: 66px;
+      height: 68px;
+    }
+  }
+
+  .rightBloc {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .counter {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      width: 100px;
+
+      .buttonQuantity {
+        width: 32px;
+        height: 32px;
+      }
+    }
+  }
+
+  .price {
+    // Styles to come later!
+  }
+}
