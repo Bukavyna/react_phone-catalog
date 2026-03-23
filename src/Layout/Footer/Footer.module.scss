@@ -1,4 +1,4 @@
-@use "../../styles/variables" as *;
+@use "../../styles/variables.module" as *;
 @use "../../styles/effects" as *;
 
 .footer {
@@ -119,8 +119,6 @@
       width: 32px;
       height:32px;
       color: #F1F2F9;
-
-      @include ripple-hover;
 
       .imgArrowToTop {
         z-index: 1;

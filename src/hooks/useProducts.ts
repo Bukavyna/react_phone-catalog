@@ -1,31 +1,30 @@
 import { useState, useEffect } from 'react';
 
 import { getProducts } from '../api';
-import { getErrorMessage } from '../utils/errorUtils';
 import { ProductDetailsType } from '../types/product-details.types';
+import { useErrorHandler } from '../utils/errors';
 
 interface UseProductsResult {
   products: ProductDetailsType[];
   loading: boolean;
-  errorMessage: string;
 }
 
 export const useProducts = (category?: string): UseProductsResult => {
   const [products, setProducts] = useState<ProductDetailsType[]>([]);
   const [loading, setLoading] = useState(false);
-  const [errorMessage, setErrorMessage] = useState('');
+
+  const { handleError } = useErrorHandler();
 
   useEffect(() => {
     setLoading(true);
-    setErrorMessage('');
 
     getProducts(category)
       .then(data => {
         setProducts(data);
       })
-      .catch(e => setErrorMessage(getErrorMessage(e, 'NETWORK')))
+      .catch(error => handleError('NETWORK', error))
       .finally(() => setLoading(false));
-  }, [category]);
+  }, [category, handleError]);
 
-  return { products, loading, errorMessage };
+  return { products, loading };
 };

@@ -1,6 +1,6 @@
-import React from 'react';
-import { createContext, useContext, useEffect, useState } from 'react';
+import React, { createContext, useContext, useEffect } from 'react';
 import { THEMES } from '../../components/ThemeSelector';
+import { useLocalStorage } from '../../hooks/useLocalStorage';
 
 export type Theme = (typeof THEMES)[number]['id'];
 
@@ -14,30 +14,14 @@ const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
-  const [themes, setThemes] = useState<Theme>(() => {
-    const savedTheme = localStorage.getItem('theme');
-
-    if (
-      savedTheme &&
-      (THEMES.map(theme => theme.id) as string[]).includes(savedTheme)
-    ) {
-      return savedTheme as Theme;
-    }
-
-    return 'original-light';
-  });
+  const [themes, setThemes] = useLocalStorage<Theme>('theme', 'original-light');
 
   useEffect(() => {
     const allThemeClasses = THEMES.map(theme => theme.id);
 
-    document.body.className = document.body.className
-      .split(' ')
-      .filter(cls => !allThemeClasses.includes(cls))
-      .join(' ');
+    document.body.classList.remove(...(allThemeClasses as string));
 
     document.body.classList.add(themes as string);
-
-    localStorage.setItem('theme', themes as string);
   }, [themes]);
 
   const value: ThemeContextType = {

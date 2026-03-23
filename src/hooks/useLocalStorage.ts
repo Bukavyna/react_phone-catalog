@@ -1,11 +1,14 @@
-import { useState, useEffect } from 'react';
-import { getErrorMessage } from '../utils/errorUtils';
+import React, { useState, useEffect } from 'react';
+
+import { useErrorHandler } from '../utils/errors';
 
 export function useLocalStorage<T>(
   key: string,
   initialValue: T,
-): [T, (value: T | ((val: T) => T)) => void] {
-  const getInitialValue = (): T => {
+): [T, React.Dispatch<React.SetStateAction<T>>] {
+  const { handleError } = useErrorHandler();
+
+  const readValue = () => {
     if (typeof window === 'undefined') {
       return initialValue;
     }
@@ -13,20 +16,24 @@ export function useLocalStorage<T>(
     try {
       const item = window.localStorage.getItem(key);
 
-      return item ? JSON.parse(item) : initialValue;
-    } catch (e) {
-      const errorMessage = getErrorMessage(e, 'LOCAL_STORAGE_READ');
+      if (!item) {
+        return initialValue;
+      }
 
-      // eslint-disable-next-line no-console
-      console.error(`Error reading localStorage key "${key}": ${errorMessage}`);
+      try {
+        return JSON.parse(item);
+      } catch {
+        return item as unknown as T;
+      }
+    } catch (error) {
+      handleError('LOCAL_STORAGE_READ', error);
 
       return initialValue;
     }
   };
 
-  const [value, setValue] = useState<T>(getInitialValue);
+  const [value, setValue] = useState<T>(readValue);
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => {
     if (typeof window === 'undefined') {
       return;
@@ -34,13 +41,10 @@ export function useLocalStorage<T>(
 
     try {
       window.localStorage.setItem(key, JSON.stringify(value));
-    } catch (e) {
-      const errorMessage = getErrorMessage(e, 'LOCAL_STORAGE_WRITE');
-
-      // eslint-disable-next-line no-console
-      console.error(`Error setting localStorage key "${key}": ${errorMessage}`);
+    } catch (error) {
+      handleError('LOCAL_STORAGE_WRITE', error);
     }
-  }, [key, value]);
+  }, [key, value, handleError]);
 
   return [value, setValue];
 }

@@ -5,8 +5,7 @@
   ],
   "compilerOptions": {
     "sourceMap": false,
-    "types": ["node", "cypress"]
-//    "lib": ["DOM", "DOM.Iterable", "ESNext"],
-//    "types": []
+    "types": ["node", "cypress"],
+    "lib": ["DOM", "DOM.Iterable", "ESNext"],
   }
 }

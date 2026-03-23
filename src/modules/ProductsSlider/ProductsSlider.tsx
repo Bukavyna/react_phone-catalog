@@ -1,11 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import styles from './ProductsSlider.module.scss';
 
 import { getProducts } from '../../api/products.api';
 import { ProductType } from '../../types/product.types';
-import { ProductsPresetType } from '../../types/sorting.types';
-import { SortType } from '../../types/sorting.types';
+import { ProductsPresetType, SortType } from '../../types/sorting.types';
 import { Spinner } from '../../components/Spinner';
 import { ProductCard } from '../../components/ProductCard';
 import { useSlider } from '../../hooks/useSlider';
@@ -15,7 +14,7 @@ import { filterProductsByCategory } from '../../utils/filtering';
 
 interface ProductsSliderProps {
   title: string;
-  ProductsPresetType?: ProductsPresetType;
+  productsPresetType?: ProductsPresetType;
   category?: string;
   excludeItemId?: string;
 }
@@ -65,7 +64,8 @@ const resolveProductsByPreset = (
 
 export const ProductsSlider: React.FC<ProductsSliderProps> = ({
   title,
-  productsPreset,
+  // productsPreset,
+  productsPresetType,
   category,
   excludeItemId,
 }) => {
@@ -92,7 +92,7 @@ export const ProductsSlider: React.FC<ProductsSliderProps> = ({
 
         const result = resolveProductsByPreset(
           allProducts,
-          productsPreset,
+          productsPresetType,
           category,
           excludeItemId,
         );
@@ -100,7 +100,7 @@ export const ProductsSlider: React.FC<ProductsSliderProps> = ({
         setProducts(result);
       })
       .finally(() => setLoading(false));
-  }, [productsPreset, category, excludeItemId]);
+  }, [productsPresetType, category, excludeItemId]);
 
   const { currentIndex, next, prev, canNext, canPrev } = useSlider({
     itemsCount: products.length,
@@ -144,7 +144,7 @@ export const ProductsSlider: React.FC<ProductsSliderProps> = ({
         >
           {products.map(product => (
             <div className={styles.cardWrapper} key={product.id}>
-              <ProductCard key={product.id} product={product} />
+              <ProductCard product={product} />
             </div>
           ))}
         </div>

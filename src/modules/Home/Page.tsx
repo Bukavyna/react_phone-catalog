@@ -1,5 +1,6 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 
 import styles from './HomePage.module.scss';
 
@@ -11,6 +12,8 @@ import { NewModels } from './components/NewModels';
 
 export const HomePage: React.FC = () => {
   const [loading, setLoading] = useState(true);
+
+  const { t } = useTranslation();
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -26,7 +29,7 @@ export const HomePage: React.FC = () => {
 
   return (
     <div className={styles.container}>
-      <h1 className={styles.title}>Product Catalog</h1>
+      <h1 className={styles.title}>{t('title.productCatalog')}</h1>
 
       <HeroBanner />
       <NewModels />

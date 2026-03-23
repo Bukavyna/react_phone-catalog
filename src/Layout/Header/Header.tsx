@@ -1,17 +1,20 @@
 import React, { useEffect } from 'react';
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 
 import styles from './Header.module.scss';
 
 import { Logo } from '../../components/Logo';
 import { NavBarMobile } from '../NavBarMobile';
 import { NavBarDesktop } from '../NavBarDesktop/NavBarDesktop';
-import { ThemeSelector } from '../../components/ThemeSelector';
 import { goBottom } from '../../utils/scrollToPosition';
 import { ArrowButton } from '../../components/ArrowButton';
+import { Settings } from '../Settings';
 
 export const Header: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  const { t } = useTranslation();
 
   useEffect(() => {
     if (isMenuOpen) {
@@ -27,10 +30,12 @@ export const Header: React.FC = () => {
 
       <NavBarDesktop isOpen={isMenuOpen} onClose={() => setIsMenuOpen(false)} />
 
+      <Settings />
+
       <label
         htmlFor="burger"
         className={styles.header__burgerButton}
-        aria-label="Toggle navigation menu"
+        aria-label={t('aria.toggleMenu')}
       >
         <input
           type="checkbox"
@@ -50,8 +55,6 @@ export const Header: React.FC = () => {
       />
 
       <NavBarMobile isOpen={isMenuOpen} onClose={() => setIsMenuOpen(false)} />
-
-      <ThemeSelector />
     </header>
   );
 };

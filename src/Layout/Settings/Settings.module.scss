@@ -1,0 +1,12 @@
+@use "../../styles/variables.module" as *;
+
+.navigation__settings {
+  display: flex;
+  align-items: center;
+
+  height: 100%;
+
+  @media (min-width: $breakpoint-tablet) {
+    margin-inline-end: -27px;
+  }
+}

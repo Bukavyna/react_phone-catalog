@@ -1,11 +1,10 @@
-@use "../../styles/variables";
+@use "../../styles/variables.module";
 
 .productsBox {
   display: flex;
   flex-direction: column;
 
   width: 288px;
-  margin-top: 46px;
   margin-inline: auto;
 
   .title {

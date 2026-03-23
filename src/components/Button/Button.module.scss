@@ -1,4 +1,4 @@
-@import "../../styles/variables";
+@use "../../styles/variables.module";
 
 .button {
   height: 40px;
@@ -17,7 +17,7 @@
 }
 
 .primary {
-  background-color: $color-primary;
+  background-color: var(--color-primary);
   color: white;
 
   &:hover:not(:disabled) {
@@ -27,9 +27,9 @@
 
 .secondary {
   background-color: white;
-  color: $color-primary;
+  color: var(--color-primary);
 
   &:hover:not(:disabled) {
-    background-color: $color-primary;
+    background-color: var(--color-primary);
   }
 }

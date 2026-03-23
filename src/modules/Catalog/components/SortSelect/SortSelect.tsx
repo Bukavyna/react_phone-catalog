@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 
 import styles from './SortSelect.module.scss';
 
@@ -18,19 +19,23 @@ export const SortSelect: React.FC<SortSelectProps> = ({
   onSortChange,
   onPerPage,
 }) => {
+  const { t } = useTranslation();
+
   return (
     <div className={styles.sortByContainer}>
       <div className={styles.selectWrapper}>
         <label className={styles.sortLabel} aria-label="Sort by">
-          Sort by
+          {t('sortBy')}
           <select
             className={styles.select}
             value={sortBy}
             onChange={e => onSortChange(e.target.value)}
           >
-            <option value={SortType.Newest}>Newest</option>
-            <option value={SortType.Alphabetically}>Alphabetically</option>
-            <option value={SortType.Cheapest}>Cheapest</option>
+            <option value={SortType.Newest}>{t('sorts.Newest')}</option>
+            <option value={SortType.Alphabetically}>
+              {t('sorts.Alphabetically')}
+            </option>
+            <option value={SortType.Cheapest}>{t('sorts.Cheapest')}</option>
           </select>
         </label>
 
@@ -39,7 +44,7 @@ export const SortSelect: React.FC<SortSelectProps> = ({
 
       <div className={styles.selectWrapper}>
         <label className={styles.sortLabel} aria-label="Items on page">
-          Items on page
+          {t('items')}
           <select
             className={styles.select}
             value={perPage}

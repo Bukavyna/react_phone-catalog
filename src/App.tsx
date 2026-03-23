@@ -1,6 +1,5 @@
 import React from 'react';
-
-import './App.scss';
+import { Toaster } from 'react-hot-toast';
 
 import { CartProvider } from './context/CartContext';
 import { FavoritesProvider } from './context/FavoritesContext';
@@ -12,6 +11,17 @@ export const App = () => {
     <ThemeProvider>
       <FavoritesProvider>
         <CartProvider>
+          <Toaster
+            position="top-right"
+            reverseOrder={false}
+            toastOptions={{
+              duration: 400,
+              style: {
+                background: '#333',
+                color: '#fff',
+              },
+            }}
+          />
           <Router />
         </CartProvider>
       </FavoritesProvider>

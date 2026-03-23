@@ -3,34 +3,71 @@ import { client } from './client';
 
 const BASE = import.meta.env.BASE_URL;
 
-const ACCESSORIES_URL = `${BASE}api/accessories.json`;
-const PHONES_URL = `${BASE}api/phones.json`;
-const TABLETS_URL = `${BASE}api/tablets.json`;
+const CATEGORY_MAP: Record<string, string> = {
+  accessories: `${BASE}api/accessories.json`,
+  phones: `${BASE}api/phones.json`,
+  tablets: `${BASE}api/tablets.json`,
+};
 
-let allProductsCache: ProductDetailsType[] | null = null;
+const categoryCache: Record<string, ProductDetailsType[]> = {};
 
-const loadAllProducts = async (): Promise<ProductDetailsType[]> => {
-  if (allProductsCache) {
-    return allProductsCache;
+const loadCategory = async (
+  category: string,
+): Promise<ProductDetailsType[]> => {
+  const url = CATEGORY_MAP[category.toLowerCase()];
+
+  if (!url) {
+    return [];
   }
 
-  const [accessories, phones, tablets] = await Promise.all([
-    client<ProductDetailsType[]>(ACCESSORIES_URL),
-    client<ProductDetailsType[]>(PHONES_URL),
-    client<ProductDetailsType[]>(TABLETS_URL),
-  ]);
+  if (categoryCache[category]) {
+    return categoryCache[category];
+  }
 
-  allProductsCache = [...accessories, ...phones, ...tablets];
+  const controller = new AbortController();
 
-  return allProductsCache;
+  try {
+    const data = await client<ProductDetailsType[]>(url, controller.signal);
+
+    categoryCache[category] = data;
+
+    return data;
+  } catch (error) {
+    if (error.name === 'AbortError') {
+      return [];
+    }
+
+    throw error;
+  }
+};
+
+export const getProducts = async (
+  category?: string,
+): Promise<ProductDetailsType[]> => {
+  if (!category) {
+    const allResult = await Promise.all(
+      Object.keys(CATEGORY_MAP).map(cat => loadCategory(cat)),
+    );
+
+    return allResult.flat();
+  }
+
+  return loadCategory(category);
 };
 
 export const getProductDetails = async (
   itemId: string,
+  categoryHint?: string,
 ): Promise<ProductDetailsType> => {
-  const allProducts = await loadAllProducts();
+  let products: ProductDetailsType[];
 
-  const foundProduct = allProducts.find(
+  if (categoryHint) {
+    products = await loadCategory(categoryHint);
+  } else {
+    products = await getProducts();
+  }
+
+  const foundProduct = products.find(
     product => product.namespaceId === itemId || product.id === itemId,
   );
 
@@ -39,16 +76,4 @@ export const getProductDetails = async (
   }
 
   return foundProduct;
-};
-
-export const getProducts = async (
-  category?: string,
-): Promise<ProductDetailsType[]> => {
-  const allProducts = await loadAllProducts();
-
-  if (!category) {
-    return allProducts;
-  }
-
-  return allProducts.filter(product => product.category === category);
 };

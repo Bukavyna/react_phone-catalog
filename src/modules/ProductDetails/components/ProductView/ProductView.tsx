@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import styles from './ProductView.module.scss';
 
@@ -7,14 +8,15 @@ import { ArrowButton } from '../../../../components/ArrowButton';
 import { ColorPicker } from '../ColorPicker';
 import { CapacityPicker } from '../CapacityPicker';
 import { ProductDetailsType } from '../../../../types/product-details.types';
-import { useNavigate } from 'react-router-dom';
 import { ImageGallery } from '../ImageGallery';
 import { TechSpecs } from '../TechSpecs';
 import { AboutSection } from '../AboutSection';
 import { ProductActions } from '../../../../components/ProductActions';
+import { Skeleton } from '../../../../components/Skeleton';
 
 interface ProductViewProps {
   details: ProductDetailsType;
+  isLoading?: boolean;
 }
 
 const getNewPath = (
@@ -32,7 +34,10 @@ const getNewPath = (
   return `/products/${details.namespaceId}-${capacity}-${color.replace(/\s+/g, '-')}`;
 };
 
-export const ProductView: React.FC<ProductViewProps> = ({ details }) => {
+export const ProductView: React.FC<ProductViewProps> = ({
+  details,
+  isLoading,
+}) => {
   const navigate = useNavigate();
 
   return (
@@ -52,7 +57,13 @@ export const ProductView: React.FC<ProductViewProps> = ({ details }) => {
 
       <div className={styles.productDetails}>
         <div className={styles.productPageHero}>
-          <ImageGallery details={details} />
+          <div className={styles.imageGallery}>
+            {isLoading ? (
+              <Skeleton className={styles.imageGallery} />
+            ) : (
+              <ImageGallery className={styles.imageGallery} details={details} />
+            )}
+          </div>
 
           <section className={styles.selectionBlock}>
             <ColorPicker

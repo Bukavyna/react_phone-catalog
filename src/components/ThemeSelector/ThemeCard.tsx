@@ -1,6 +1,10 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
+
+import rawStyles from './ThemeSelector.module.scss';
+const styles = rawStyles as { [key: string]: string };
+
 import { ThemeConfig } from './themeConfig';
-import styles from './ThemeSelector.module.scss';
 
 interface ThemeCardProps {
   theme: ThemeConfig;
@@ -13,34 +17,38 @@ export const ThemeCard: React.FC<ThemeCardProps> = ({
   isActive,
   onClick,
 }) => {
+  const { t } = useTranslation();
+  const inputId = `theme-${theme.id}`;
+
   return (
+    // eslint-disable-next-line jsx-a11y/label-has-associated-control
     <label
-      className={`${styles.themeCard} ${isActive ? styles.active : ''}`}
+      htmlFor={inputId}
+      className={`${styles.optionCard} ${isActive ? styles.active : ''}`}
       style={{
         backgroundColor: theme.backgroundColor,
         color: theme.textColor,
       }}
     >
       <div className={styles.cardContent}>
-        <span className={styles.themeName}>{theme.name}</span>
+        <span className={styles.cardLabel}>{t(`colors.${theme.nameKey}`)}</span>
 
         <div
-          className={styles.demoButton}
+          className={styles.cardBadge}
           style={{ backgroundColor: theme.backgroundColor }}
         />
       </div>
 
-      <input
-        type="radio"
-        name="theme"
-        value={String(theme.id)}
-        checked={isActive}
-        onChange={onClick}
-        className={styles.radio}
-      />
-
       <span className={styles.radioCustom}>
-        {isActive && <span className={styles.radioInner} />}
+        <input
+          id={inputId}
+          type="radio"
+          name="theme"
+          value={String(theme.id)}
+          checked={isActive}
+          onChange={onClick}
+          className={styles.radio}
+        />
       </span>
     </label>
   );

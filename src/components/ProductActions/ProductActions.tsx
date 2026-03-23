@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 
 import styles from './ProductActions.module.scss';
 
@@ -24,6 +25,8 @@ export const ProductActions: React.FC<ProductActionsProps> = ({
   const added = isInCart(idToCheck);
   const favorite = isFavorites(idToCheck);
 
+  const { t } = useTranslation();
+
   return (
     <div className={`${styles.actions} ${styles[`actions--${variant}`]}`}>
       <Button
@@ -31,7 +34,7 @@ export const ProductActions: React.FC<ProductActionsProps> = ({
         disabled={added}
         onClick={() => addToCart(product)}
       >
-        {added ? 'Added to cart' : 'Add to cart'}
+        {added ? t('actions.AddedToCart') : t('actions.AddToCart')}
       </Button>
 
       <button
@@ -39,11 +42,7 @@ export const ProductActions: React.FC<ProductActionsProps> = ({
         className={`${styles.favoriteButton} ${favorite ? styles.favoriteActive : ''}`}
         onClick={() => toggleFavorite(product)}
       >
-        <HeartIcon
-          favorite={favorite}
-          className={styles.heartIcon}
-          fill={favorite ? '#EB5757' : 'none'}
-        />
+        <HeartIcon isSelected={favorite} className={styles.heartIcon} />
       </button>
     </div>
   );

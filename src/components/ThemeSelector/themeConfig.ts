@@ -1,50 +1,58 @@
 import { Theme } from '../../context/ThemeContext';
 
-// import * as colors from '../../styles/_variables.scss';
+import * as rawStyles from '../../styles/_variables.module.scss';
+
+const styles = rawStyles as { [key: string]: string };
 
 export interface ThemeConfig {
   id: Theme;
-  name: string;
+  nameKey: string;
   backgroundColor: string;
   textColor: string;
   buttonColor: string;
+  iconAccent: string;
 }
 
 export const THEMES: ThemeConfig[] = [
   {
     id: 'original-light' as const,
-    name: 'Original Light',
-    backgroundColor: '#FFFFFF',
-    textColor: '#313237',
-    buttonColor: '#313237',
+    nameKey: 'originalLight',
+    backgroundColor: styles.white,
+    textColor: styles.greyCharcoal,
+    buttonColor: styles.greyCharcoal,
+    iconAccent: styles.purple,
   },
   {
     id: 'original-dark' as const,
-    name: 'Original Dark',
-    backgroundColor: '#0F1121',
-    textColor: '#F1F2F9',
-    buttonColor: '#905BFF',
+    nameKey: 'originalDark',
+    backgroundColor: styles.blackDeep,
+    textColor: styles.whiteOff,
+    buttonColor: styles.purple,
+    iconAccent: styles.whiteOff,
   },
   {
     id: 'rounded-purple-blue' as const,
-    name: 'Rounded Purple Blue ',
-    backgroundColor: '#F1F2F9',
-    textColor: '#0F0F11',
-    buttonColor: '#4219D0',
+    nameKey: 'roundedPurpleBlue',
+    backgroundColor: styles.whiteOff,
+    textColor: styles.black,
+    buttonColor: styles.blueViolet,
+    iconAccent: styles.blueBright,
   },
   {
     id: 'rounded-blue' as const,
-    name: 'Rounded Blue',
-    backgroundColor: '#01F8FF',
-    textColor: '#0F0F11',
-    buttonColor: '#216CFF',
+    nameKey: 'purpleBlue',
+    backgroundColor: styles.cyanNeon,
+    textColor: styles.black,
+    buttonColor: styles.blueBright,
+    iconAccent: styles.blueViolet,
   },
   {
     id: 'rounded-purple-orange' as const,
-    name: 'Rounded Purple Orange',
-    backgroundColor: '#FFC4AA',
-    textColor: '#0F0F11',
-    buttonColor: '#F86800',
+    nameKey: 'purpleOrange',
+    backgroundColor: styles.peach,
+    textColor: styles.black,
+    buttonColor: styles.orange,
+    iconAccent: styles.greyCharcoal,
   },
 ] as const;
 

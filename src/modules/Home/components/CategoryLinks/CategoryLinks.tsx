@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 import styles from './CategoryLinks.module.scss';
 
@@ -9,6 +10,7 @@ import { useProducts } from '../../../../hooks/useProducts';
 
 export const CategoryLinks: React.FC = () => {
   const { products } = useProducts();
+  const { t } = useTranslation();
 
   const HOME_CATEGORIES = CATEGORIES.map(cat => {
     const categoryProducts = filterProductsByCategory(
@@ -25,7 +27,7 @@ export const CategoryLinks: React.FC = () => {
 
   return (
     <div className={styles.homePage}>
-      <h2>Shop by category</h2>
+      <h2>{t('title.shopByCategory')}</h2>
 
       <div className={styles.homePageBox}>
         {HOME_CATEGORIES.map(cate => (
@@ -35,8 +37,12 @@ export const CategoryLinks: React.FC = () => {
               src={cate.image}
               alt={cate.title}
             />
-            <span className={styles.categoryTitle}>{cate.title}</span>
-            <span className={styles.categoryCount}>{cate.count}models</span>
+            <span className={styles.categoryTitle}>
+              {t(`nav.${cate.title}`).toLowerCase()}
+            </span>
+            <span className={styles.categoryCount}>
+              {t('common.total', { count: cate.count })}
+            </span>
           </Link>
         ))}
       </div>

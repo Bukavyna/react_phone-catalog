@@ -1,28 +1,31 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-
-import { NavIcons } from '../NavIcons';
+import { useTranslation } from 'react-i18next';
 
 import styles from './NavBarDesktop.module.scss';
+
+import { NavIcons } from '../NavIcons';
 
 interface NavBarDesktopProps {
   onClose: () => void;
 }
 
 export const NavBarDesktop: React.FC<NavBarDesktopProps> = ({ onClose }) => {
+  const { t } = useTranslation();
+
   return (
     <nav className={styles.navigation}>
       <Link to="/" className={styles.navigation__link}>
-        home
+        {t('nav.home')}
       </Link>
       <Link to="/phones" className={styles.navigation__link}>
-        phones
+        {t('nav.phones')}
       </Link>
       <Link to="/tablets" className={styles.navigation__link}>
-        tablets
+        {t('nav.tablets')}
       </Link>
       <Link to="/accessories" className={styles.navigation__link}>
-        accessories
+        {t('nav.accessories')}
       </Link>
 
       <NavIcons styles={styles} onClose={onClose} />

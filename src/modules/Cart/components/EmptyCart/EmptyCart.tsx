@@ -1,9 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 import styles from './EmptyCart.module.scss';
 
 export const EmptyCart: React.FC = () => {
+  const { t } = useTranslation();
+
   return (
     <div className={styles.emptyCart}>
       <div className={styles.imageWrapper}>
@@ -14,14 +17,11 @@ export const EmptyCart: React.FC = () => {
         />
       </div>
 
-      <h2 className={styles.title}>Your cart is empty</h2>
-      <p className={styles.description}>
-        But it&apos;s never too late to fix it! Check out our catalog to find
-        something special.
-      </p>
+      <h2 className={styles.title}>{t('emptyCart.title')}</h2>
+      <p className={styles.description}>{t('emptyCart.description')}</p>
 
       <Link to="/phones" className={styles.button}>
-        Checkout
+        {t('emptyCart.buttonCheckout')}
       </Link>
     </div>
   );

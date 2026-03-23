@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 
 import styles from './CartPage.module.scss';
 
@@ -11,10 +12,12 @@ import { BackButton } from '../../components/BackButton';
 export const CartPage: React.FC = () => {
   const { cart } = useCart();
 
+  const { t } = useTranslation();
+
   return (
     <div className={styles.cartPage}>
       <BackButton />
-      <h1 className={styles.title}>Cart</h1>
+      <h1 className={styles.title}>{t('cart.title')}</h1>
 
       {cart.length > 0 ? (
         <div className={styles.content}>

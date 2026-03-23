@@ -21,15 +21,17 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   return (
     <div className={styles.card}>
       <Link to={`/products/${productId}`} className={styles.link}>
-        <img
-          src={
-            productImage
-              ? `${import.meta.env.BASE_URL}${productImage}`
-              : `${import.meta.env.BASE_URL}img/page-not-found.png`
-          }
-          alt={name}
-          className={styles.image}
-        />
+        <div style={{ minWidth: 221, minHeight: 300 }}>
+          <img
+            src={
+              productImage
+                ? `${import.meta.env.BASE_URL}${productImage}`
+                : `${import.meta.env.BASE_URL}img/page-not-found.png`
+            }
+            alt={name}
+            className={styles.image}
+          />
+        </div>
 
         <h2 className={styles.name}>{name}</h2>
 

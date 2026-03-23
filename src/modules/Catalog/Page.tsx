@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useParams } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 import styles from './CatalogPage.module.scss';
 
@@ -24,6 +25,8 @@ export const CatalogPage: React.FC = () => {
   const [perPage, setPerPage] = useState<string>('16');
 
   const [currentPage, setCurrentPage] = useState(1);
+
+  const { t } = useTranslation();
 
   if (!category) {
     return <NotFound />;
@@ -80,8 +83,13 @@ export const CatalogPage: React.FC = () => {
     <div className={styles.productsBox}>
       <Breadcrumbs />
 
-      <h1 className={styles.title}>{currentCategory.categoryName}</h1>
-      <p>{visibleProducts.length} models</p>
+      <h1 className={styles.title}>
+        {category ? t(`categories.${category}`) : ''}
+      </h1>
+
+      <p>
+        {visibleProducts.length} {t('models')}
+      </p>
 
       <SortSelect
         sortBy={sortBy}

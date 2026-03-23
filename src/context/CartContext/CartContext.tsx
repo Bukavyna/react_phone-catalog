@@ -1,4 +1,4 @@
-import React, { createContext, useEffect } from 'react';
+import React, { createContext } from 'react';
 
 import { CartContextType } from '../../types/cart-context.types';
 import { useLocalStorage } from '../../hooks/useLocalStorage';
@@ -17,12 +17,6 @@ interface CartProviderProps {
 
 export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
   const [cart, setCart] = useLocalStorage<CartItemType[]>(CART_STORAGE_KEY, []);
-
-  useEffect(() => {
-    if (!Array.isArray(cart)) {
-      setCart([]);
-    }
-  }, [cart, setCart]);
 
   const cartCount = cart.reduce((sum, item) => sum + item.quantity, 0);
 

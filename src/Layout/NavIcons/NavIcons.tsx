@@ -1,11 +1,15 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { Link } from 'react-router-dom';
+import { Player } from '@lordicon/react';
 
 import baseStyles from './NavIcons.module.scss';
+
+import wiredTrolley from '../../img/wiredTrolley1.json';
 
 import { useFavorites } from '../../hooks/useFavorites';
 import { useCart } from '../../hooks/useCart';
 import { HeartIcon } from '../../components/HeartIcon';
+import { WiredTrolley } from '../../components/WiredTrolley';
 
 interface NavIconsProps {
   styles: { [key: string]: string };
@@ -18,6 +22,7 @@ export const NavIcons: React.FC<NavIconsProps> = ({ styles, onClose }) => {
 
   const favoritesCount = favorites.length;
   const cartCount = cart.length;
+  const cartRef = useRef<Player | null>(null);
 
   const getClassName = (className: string) => {
     return `${baseStyles[className] || ''} ${styles[className] || ''}`.trim();
@@ -31,43 +36,31 @@ export const NavIcons: React.FC<NavIconsProps> = ({ styles, onClose }) => {
         onClick={onClose}
       >
         <HeartIcon
-          favorite={favorites}
+          isSelected={favoritesCount > 0}
           className={styles.heartIcon}
-          fill={favorites.length ? '#EB5757' : 'none'}
+          trigger={favoritesCount}
         />
 
         {favoritesCount > 0 && (
-          <span className={styles.counter}>{favoritesCount}</span>
+          <span className={baseStyles.counter}>{favoritesCount}</span>
         )}
       </Link>
-
-      <div className={styles.divider} />
 
       <Link
         to="/cart"
         className={styles.navigation__iconLink}
         onClick={onClose}
       >
-        <svg
+        <WiredTrolley
+          ref={cartRef}
           className={getClassName('navigation__icon')}
-          width="16"
-          height="16"
-          viewBox="0 0 16 16"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M2 2h1.5l1.6 8.8c.1.5.5.9 1 .9h6.8c.5 0 .9-.4 1-.9L15 5H4.5"
-            stroke="currentColor"
-            strokeWidth="1.5"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            fill="none"
-          />
-          <circle cx="6" cy="14" r="1" fill="currentColor" />
-          <circle cx="12" cy="14" r="1" fill="currentColor" />
-        </svg>
-        {cartCount > 0 && <span className={styles.counter}>{cartCount}</span>}
+          icon={wiredTrolley}
+          trigger={cartCount}
+        />
+
+        {cartCount > 0 && (
+          <span className={baseStyles.counter}>{cartCount}</span>
+        )}
       </Link>
     </div>
   );

@@ -15,10 +15,17 @@ export const Router: React.FC = () => {
       <Route path="/" element={<Layout />}>
         <Route index element={<HomePage />} />
 
-        <Route path="products/:productId" element={<ProductDetailsPage />} />
+        <Route
+          path="products/:productId"
+          element={<ProductDetailsPage key={location.pathname} />}
+        />
+
         <Route path="cart" element={<CartPage />} />
         <Route path="favorites" element={<FavoritesPage />} />
-        <Route path=":category" element={<CatalogPage />} />
+        <Route
+          path=":category"
+          element={<CatalogPage key={location.pathname} />}
+        />
 
         <Route path="*" element={<NotFound />} />
       </Route>

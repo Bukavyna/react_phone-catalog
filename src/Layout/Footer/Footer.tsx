@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 import styles from './Footer.module.scss';
 
@@ -8,6 +9,8 @@ import { goTo } from '../../utils/scrollToPosition';
 import { ArrowButton } from '../../components/ArrowButton';
 
 export const Footer: React.FC = () => {
+  const { t } = useTranslation();
+
   return (
     <footer className={styles.footer}>
       <Logo />
@@ -17,15 +20,15 @@ export const Footer: React.FC = () => {
           Github
         </Link>
         <Link to="/phones" className={styles.navigation__link}>
-          Contacts
+          {t('footer.contacts')}
         </Link>
         <Link to="/tablets" className={styles.navigation__link}>
-          Rights
+          {t('footer.rights')}
         </Link>
       </nav>
 
       <div className={styles.scrollToTop}>
-        Back to top
+        {t('footer.backToTop')}
         <ArrowButton
           className={styles.scrollButtonToTop}
           arrowClassName={styles.arrowIcon}

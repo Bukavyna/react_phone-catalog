@@ -1,29 +1,37 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { Player } from '@lordicon/react';
+
+import heartbeat from '../../img/heartbeat.json';
+
+import { useLordicon } from '../../hooks/useLordicon';
 
 interface HeartIconProps {
-  fill?: string;
   className?: string;
+  isSelected?: boolean;
+  trigger?: number;
 }
 
 export const HeartIcon: React.FC<HeartIconProps> = ({
-  fill = 'none',
   className,
+  isSelected = false,
+  trigger,
 }) => {
+  const { playerRef, handleMouseEnter } = useLordicon();
+  const iconColor = isSelected ? '#EB5757' : '#808080';
+
+  useEffect(() => {
+    if (isSelected && playerRef.current) {
+      playerRef.current?.playFromBeginning();
+    }
+  }, [isSelected, trigger, playerRef]);
+
   return (
-    <svg
-      className={className}
-      width="16"
-      height="16"
-      viewBox="0 0 16 16"
-      xmlns="http://www.w3.org/2000/svg"
-      aria-hidden="true"
-    >
-      <path
-        d="M8 2.5C6 0 2 1 2 5c0 4 6 8 6 8s6-4 6-8c0-4-4-5-6-2.5z"
-        strokeWidth="1.5"
-        stroke="currentColor"
-        fill={fill}
+    <div className={className} onMouseEnter={handleMouseEnter}>
+      <Player
+        icon={heartbeat}
+        ref={playerRef}
+        colors={`primary:${iconColor}, secondary:${iconColor}`}
       />
-    </svg>
+    </div>
   );
 };
